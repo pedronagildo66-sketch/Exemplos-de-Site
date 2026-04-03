@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioGarden Store | Produtos Orgânicos</title>
+    <style>
+        :root {
+            --primary: #5dbb63;
+            --secondary: #234f1e;
+            --light: #aef359;
+            --dark: #354a21;
+        }
+
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--light); color: var(--dark); scroll-behavior: smooth; }
+        
+        /* Navegação */
+        nav { background: var(--primary); padding: 1rem 10%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; color: white; }
+        nav a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; }
+
+        /* Hero Section */
+        .hero { text-align: center; padding: 60px 20px; background: white; border-bottom: 4px  var(--secondary); }
+        .hero h1 { color: var(--primary); font-size: 2.5rem; }
+        .hero p { max-width: 600px; margin: 0 auto; color: #666; }
+
+        /* Loja */
+        .container { padding: 40px 5%; }
+        .grid-produtos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        
+        .produto-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; transition: 0.3s; }
+        .produto-card:hover { transform: translateY(-5px); }
+        .produto-card h3 { margin: 15px 0 5px; }
+        .price { color: var(--primary); font-weight: bold; font-size: 1.2rem; display: block; margin-bottom: 15px; }
+        
+        .btn-add { background: var(--secondary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
+        .btn-add:hover { background: #5e9615; }
+
+        /* Carrinho e Checkout */
+        #carrinho { background: white; padding: 20px; border-radius: 12px; margin-top: 40px; border: 2px dashed var(--primary); }
+        .item-carrinho { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #ddd; }
+        .total { font-size: 1.5rem; font-weight: bold; text-align: right; margin-top: 20px; }
+        
+        .btn-pagamento { background: var(--primary); color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; margin-top: 20px; }
+
+        /* Contatos */
+        .contatos { background: var(--dark); color: white; padding: 40px 5%; text-align: center; margin-top: 50px; }
+        .social-links a { display: inline-block; margin: 10px 20px; color: var(--secondary); font-size: 1.2rem; text-decoration: none; border: 1px solid var(--secondary); padding: 10px 20px; border-radius: 50px; }
+        .social-links a:hover { background: var(--secondary); color: white; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><strong>BioGarden Store</strong></div>
+        <div>
+            <a href="#home">Início</a>
+            <a href="#produtos">Produtos</a>
+            <a href="#carrinho">Carrinho</a>
+            <a href="#contato">Contato</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>Transforme sua casa em um ambiemte sustentável</h1>
+        <p>A BioGarden oferece soluções práticas para quem deseja cultivar, temos produtos para todas as ocasiões e uma variedade imensa de soluções para quem busca praticidade sustentável.</p>
+    </section>
+
+    <section class="container" id="produtos">
+        <h2 style="text-align: center; margin-bottom: 40px;">Nossos Insumos Orgânicos</h2>
+        <div class="grid-produtos">
+            
+            <div class="produto-card">
+                <h3>Combo Mudas de Temperos</h3>
+                <p>Mangericão, Alecrim e Salsa prontos para plantio.</p>
+                <span class="price">R$ 28,00</span>
+                <button class="btn-add" onclick="adicionar('Combo de Mudas', 28)">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="produto-card">
+                <h3>Biofertilizante Líquido</h3>
+                <p>Concentrado rico em nutrientes (500ml).</p>
+                <span class="price">R$ 29,00</span>
+                <button class="btn-add" onclick="adicionar('Biofertilizante', 29)">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="produto-card">
+                <h3>Composto Orgânico</h3>
+                <p>Terra rica preparada com decomposição natural (5kg).</p>
+                <span class="price">R$ 30,00</span>
+                <button class="btn-add" onclick="adicionar('Composto Orgânico', 30)">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="produto-card">
+                <h3>Minhocas Californianas</h3>
+                <p>Pacote com 50 unidades para sua composteira.</p>
+                <span class="price">R$ 32,00</span>
+                <button class="btn-add" onclick="adicionar('Minhocas', 32)">Adicionar ao Carrinho</button>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="container" id="carrinho">
+        <h2>Seu Carrinho</h2>
+        <div id="itens-lista">
+            <p style="color: #999;">O carrinho está vazio...</p>
+        </div>
+        <div class="total">Total: R$ <span id="valor-total">0,00</span></div>
+        
+        <div id="checkout-ficticio" style="display: none; margin-top: 30px; border-top: 1px solid #ccc; padding-top: 20px;">
+            <h3>Pagamento Simulado</h3>
+            <p>Escolha a forma de pagamento:</p>
+            <select style="padding: 10px; width: 100%; border-radius: 5px;">
+                <option>PIX (5% de desconto)</option>
+                <option>Cartão de Crédito</option>
+            </select>
+            <button class="btn-pagamento" onclick="alert('Isso é uma simulação! O BioGarden agradece.')">Finalizar Pedido Simulado</button>
+        </div>
+    </section>
+
+    <section class="contatos" id="contato">
+        <h2>Fale com o Especialista</h2>
+        <p>Dúvidas sobre manejo ou grandes quantidades?</p>
+        <div class="social-links">
+            <a href="https://wa.me/+55 (51) 98354-2934" target="_blank">WhatsApp</a>
+            <a href="https://instagram.com/@pedro_nagildo" target="_blank">Instagram</a>
+        </div>
+        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.6;">BioGarden &copy; 2026 - Cultivando em Lares</p>
+    </section>
+
+    <script>
+        let total = 0;
+        const listaItens = document.getElementById('itens-lista');
+        const valorTotalDisplay = document.getElementById('valor-total');
+        const areaCheckout = document.getElementById('checkout-ficticio');
+
+        function adicionar(nome, preco) {
+            if (total === 0) listaItens.innerHTML = ''; // Limpa o "vazio"
+            
+            const divItem = document.createElement('div');
+            divItem.className = 'item-carrinho';
+            divItem.innerHTML = `<span>${nome}</span> <span>R$ ${preco.toFixed(2)}</span>`;
+            listaItens.appendChild(divItem);
+
+            total += preco;
+            valorTotalDisplay.innerText = total.toFixed(2);
+            areaCheckout.style.display = 'block';
+            
+            // Rola suavemente para o carrinho ao adicionar
+            document.getElementById('carrinho').scrollIntoView();
+        }
+    </script>
+
+</body>
+</html>
